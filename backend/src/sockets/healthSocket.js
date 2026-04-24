@@ -81,6 +81,31 @@ const initHealthSocketWS = (wss) => {
 
 
 
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
 const initHealthSocketWSReal = (wss) => {
 
   let latestData = {
@@ -106,9 +131,10 @@ const initHealthSocketWSReal = (wss) => {
 
     ws.on("message", (message) => {
       try {
-        const data = JSON.parse(message.toString());
+        const msg = JSON.parse(message.toString());
 
-        console.log("Received:", data);
+        if (msg.type === "health_data") {
+        const data = msg.payload;
 
         if (data.heart_rate !== undefined) {
           latestData.heart_rate = data.heart_rate;
@@ -124,6 +150,7 @@ const initHealthSocketWSReal = (wss) => {
 
         latestData.timestamp = new Date();
 
+        // broadcast
         wss.clients.forEach((client) => {
           if (client.readyState === WebSocket.OPEN) {
             client.send(JSON.stringify({
@@ -132,8 +159,9 @@ const initHealthSocketWSReal = (wss) => {
             }));
           }
         });
+      }
 
-      } catch (err) {
+    } catch (err) {
         console.error("Invalid message:", err);
       }
     });
