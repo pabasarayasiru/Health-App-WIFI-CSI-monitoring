@@ -1,8 +1,21 @@
 import 'package:flutter/material.dart';
-import 'features/realtime/screens/realtime_screen.dart';
+import 'package:provider/provider.dart';
+import 'features/features.dart';
 
 void main() {
-  runApp(const MyApp());
+  runApp(
+    MultiProvider(
+      providers: [
+        ChangeNotifierProvider(
+          create: (_) => RealtimeProvider(),
+        ),
+        ChangeNotifierProvider(
+          create: (_) => HistoryProvider(),
+        ),
+      ],
+      child: const MyApp(),
+    ),
+  );
 }
 
 class MyApp extends StatelessWidget {
@@ -13,11 +26,11 @@ class MyApp extends StatelessWidget {
     return MaterialApp(
       title: 'Health Monitoring App',
       debugShowCheckedModeBanner: false,
-
-      theme: ThemeData(primarySwatch: Colors.blue, useMaterial3: true),
-
-      // start screen
-      home: const RealtimeScreen(),
+      theme: ThemeData(
+        primarySwatch: Colors.blue,
+        useMaterial3: true,
+      ),
+      home: const SplashScreen(),
     );
   }
 }
