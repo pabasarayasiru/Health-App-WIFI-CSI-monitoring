@@ -13,7 +13,7 @@ const initHealthSocketIO = (io) => {
       const data = {
         heart_rate: Math.floor(Math.random() * 40) + 60,
         respiration_rate: Math.floor(Math.random() * 10) + 12,
-        posture: ["sitting", "standing", "sleeping"][Math.floor(Math.random() * 3)],
+        posture: ["supine", "prone", "left", "right"][Math.floor(Math.random() * 4)],
         timestamp: new Date(),
       };
 
@@ -46,9 +46,7 @@ const initHealthSocketWS = (wss) => {
       const data = {
         heart_rate: Math.floor(Math.random() * 40) + 60,
         respiration_rate: Math.floor(Math.random() * 10) + 12,
-        posture: ["sitting", "standing", "sleeping"][
-          Math.floor(Math.random() * 3)
-        ],
+        posture: ["supine", "prone", "left", "right"][Math.floor(Math.random() * 4)],
         timestamp: new Date(),
       };
 
