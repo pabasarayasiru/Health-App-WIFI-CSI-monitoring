@@ -17,8 +17,10 @@ class _HealthScreenState extends State<HealthScreen> {
   final GlobalKey liveKey = GlobalKey();
   final GlobalKey historyKey = GlobalKey();
   final GlobalKey liveHeartRateKey = GlobalKey();
+  final GlobalKey respirationRateKey = GlobalKey();
+  final GlobalKey postureKey = GlobalKey();
 
-  bool isSidebarOpen = true;
+  bool isSidebarOpen = false;
 
   void scrollTo(GlobalKey key) {
     final context = key.currentContext;
@@ -32,7 +34,7 @@ class _HealthScreenState extends State<HealthScreen> {
   void initState() {
     super.initState();
 
-    Future.microtask(() {
+    WidgetsBinding.instance.addPostFrameCallback((_) {
       final realTimeProvider = context.read<RealtimeProvider>();
       final historyProvider = context.read<HistoryProvider>();
 
@@ -51,48 +53,72 @@ class _HealthScreenState extends State<HealthScreen> {
   Widget build(BuildContext context) {
 
     return Scaffold(
-      body: Row(
+
+      body: Column(
         children: [
 
-          // sidebar
-          AppSidebar(
-            isOpen: isSidebarOpen,
-            onToggle: () {
-              setState(() {
-                isSidebarOpen = !isSidebarOpen;
-              });
-            },
-            onLiveTap: () => scrollTo(liveKey),
-            onLiveHeartTap: () => scrollTo(liveHeartRateKey),
-            onHistoryTap: () => scrollTo(historyKey),
-          ),
-
-          //  Main Content
-          Expanded(
-            child: SingleChildScrollView(
-              controller: _scrollController,
-              child: Column(
-                crossAxisAlignment: CrossAxisAlignment.start,
-                children: [
-
-                  // LIVE
-                  LiveSection(
-                    liveKey: liveKey,
-                    heartRateKey: liveHeartRateKey,
-                  ),
-
-                  const Divider(),
-
-                  // HISTORY
-                  // HistorySection(
-                  //   historyKey: historyKey,
-                  // ),
-                ],
-              ),
+          Material(
+            elevation: 4,
+            child: AppHeader(
+              onToggle: () {
+                setState(() {
+                  isSidebarOpen = !isSidebarOpen;
+                });
+              },
             ),
           ),
-        ],
-      ),
+
+          Expanded(
+              child: Row(
+                children: [
+                  // sidebar
+                  AppSidebar(
+                    isOpen: isSidebarOpen,
+                    onLiveTap: () => scrollTo(liveKey),
+                    onLiveHeartTap: () => scrollTo(liveHeartRateKey),
+                    onHistoryTap: () => scrollTo(historyKey),
+                    onLiveRespirationTap: () => scrollTo(respirationRateKey),
+                    onLivePostureTap: () => scrollTo(postureKey),
+                  ),
+
+                  //  Main Content
+                  Expanded(
+                    child: SingleChildScrollView(
+                      controller: _scrollController,
+                      child: Column(
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+
+                          // LIVE
+                          LiveSection(
+                            liveKey: liveKey,
+                            heartRateKey: liveHeartRateKey,
+                            respirationRateKey: respirationRateKey,
+                            postureKey: postureKey,
+                          ),
+
+                          const Divider(),
+
+                          // HISTORY
+                          // HistorySection(
+                          //   historyKey: historyKey,
+                          // ),
+                        ],
+                      ),
+                    ),
+                  ),
+
+                ],
+              ),
+          ),
+
+
+
+          const AppFooter(),
+        ]
+
+      )
+
     );
   }
 }

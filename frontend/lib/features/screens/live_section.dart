@@ -6,11 +6,15 @@ import 'package:frontend/widgets/widgets.dart';
 class LiveSection extends StatelessWidget {
   final GlobalKey liveKey;
   final GlobalKey heartRateKey;
+  final GlobalKey respirationRateKey;
+  final GlobalKey postureKey;
 
   const LiveSection({
     super.key,
     required this.liveKey,
     required this.heartRateKey,
+    required this.respirationRateKey,
+    required this.postureKey,
   });
 
   @override
@@ -25,6 +29,7 @@ class LiveSection extends StatelessWidget {
         children: [
           HeaderTopic(topic: "Live Result"),
 
+
           Container(
             key: heartRateKey,
             child: HeartRateWidget(
@@ -32,19 +37,20 @@ class LiveSection extends StatelessWidget {
             ),
           ),
 
-          const SizedBox(height: 10),
-
-          Card(
-            elevation: 5,
-            child: ListTile(
-              title: Text(
-                  "Heart Rate: ${provider.liveData?.heartRate ?? '--'}"),
-              subtitle: Text(
-                  "Respiration: ${provider.liveData?.respirationRate ?? '--'}"),
-              trailing:
-              Text(provider.liveData?.posture.name ?? "--"),
+          Container(
+            key: respirationRateKey,
+            child: RespirationWidget(
+              respirationRate: provider.liveData?.respirationRate,
             ),
           ),
+
+          Container(
+            key: postureKey,
+            child: PostureWidget(
+              posture: postureFromString(provider.liveData?.posture.name),
+            ),
+          ),
+
         ],
       ),
     );

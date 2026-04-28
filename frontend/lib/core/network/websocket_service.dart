@@ -20,15 +20,17 @@ class WebSocketService {
 
     try {
       _channel = WebSocketChannel.connect(Uri.parse(url));
-      _isConnected = true;
-
-      _statusController.add(SocketStatus.connected);
 
       _channel!.stream.listen(
             (message) {
+          if (!_isConnected) {
+            _isConnected = true;
+            _statusController.add(SocketStatus.connected);
+          }
           _controller.add(message);
         },
         onError: (error) {
+          _isConnected = false;
           _statusController.add(SocketStatus.error);
           _reconnect(url);
         },

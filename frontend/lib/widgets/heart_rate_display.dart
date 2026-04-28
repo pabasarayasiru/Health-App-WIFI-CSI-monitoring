@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/sub_header_topic.dart';
 
 class HeartRateWidget extends StatefulWidget {
   final int? heartRate;
@@ -53,46 +54,54 @@ class _HeartRateWidgetState extends State<HeartRateWidget>
   Widget build(BuildContext context) {
     final bpm = widget.heartRate;
 
-    return Card(
-      elevation: 6,
-      shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
-      child: Padding(
-        padding: const EdgeInsets.all(20),
-        child: Row(
-          children: [
-            // ❤️ Animated Heart
-            ScaleTransition(
-              scale: _scaleAnimation,
-              child: Icon(
-                Icons.favorite,
-                color: Colors.red,
-                size: 50,
-              ),
-            ),
-
-            const SizedBox(width: 20),
-
-            // 📊 Data
-            Column(
+    return Column(
+      children: [
+        Card(
+          elevation: 6,
+          shape: RoundedRectangleBorder(borderRadius: BorderRadius.circular(16)),
+          child: Container(
+            width: double.infinity,
+            padding: const EdgeInsets.all(20),
+            child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [
-                const Text(
-                  "Heart Rate",
-                  style: TextStyle(fontSize: 16, color: Colors.grey),
-                ),
-                const SizedBox(height: 5),
-                Text(
-                  bpm != null ? "$bpm bpm" : "--",
-                  style: const TextStyle(
-                    fontSize: 26,
-                    fontWeight: FontWeight.bold,
+
+                SubHeaderTopic(topic: " Heart Rate"),
+
+
+                Center(
+                  child: Column(
+                    children: [
+
+                      ScaleTransition(
+                        scale: _scaleAnimation,
+                        child: const Icon(
+                          Icons.favorite,
+                          color: Colors.red,
+                          size: 100,
+                        ),
+                      ),
+
+                      const SizedBox(height: 10),
+
+                      Text(
+                        bpm != null ? "$bpm bpm" : "--",
+                        style: const TextStyle(
+                          fontSize: 26,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
+                    ],
                   ),
                 ),
+
+                SizedBox(height: 20,),
               ],
             ),
-          ],
+          ),
         ),
-      ),
+        SizedBox(height: 20,),
+      ]
     );
   }
 }
