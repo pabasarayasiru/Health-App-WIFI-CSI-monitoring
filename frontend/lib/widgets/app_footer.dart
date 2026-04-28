@@ -8,7 +8,7 @@ class AppFooter extends StatelessWidget {
     return Container(
       height: 40,
       alignment: Alignment.center,
-      color: Colors.black87,
+      color: Colors.deepPurple.shade800,
 
       child: const Text(
         "© 2026 Health Monitoring System",

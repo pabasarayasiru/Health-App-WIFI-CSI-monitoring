@@ -54,70 +54,72 @@ class _HealthScreenState extends State<HealthScreen> {
 
     return Scaffold(
 
-      body: Column(
-        children: [
+      body: SafeArea(
+          child: Column(
+              children: [
 
-          Material(
-            elevation: 4,
-            child: AppHeader(
-              onToggle: () {
-                setState(() {
-                  isSidebarOpen = !isSidebarOpen;
-                });
-              },
-            ),
-          ),
-
-          Expanded(
-              child: Row(
-                children: [
-                  // sidebar
-                  AppSidebar(
-                    isOpen: isSidebarOpen,
-                    onLiveTap: () => scrollTo(liveKey),
-                    onLiveHeartTap: () => scrollTo(liveHeartRateKey),
-                    onHistoryTap: () => scrollTo(historyKey),
-                    onLiveRespirationTap: () => scrollTo(respirationRateKey),
-                    onLivePostureTap: () => scrollTo(postureKey),
+                Material(
+                  elevation: 4,
+                  child: AppHeader(
+                    onToggle: () {
+                      setState(() {
+                        isSidebarOpen = !isSidebarOpen;
+                      });
+                    },
                   ),
+                ),
 
-                  //  Main Content
-                  Expanded(
-                    child: SingleChildScrollView(
-                      controller: _scrollController,
-                      child: Column(
-                        crossAxisAlignment: CrossAxisAlignment.start,
-                        children: [
-
-                          // LIVE
-                          LiveSection(
-                            liveKey: liveKey,
-                            heartRateKey: liveHeartRateKey,
-                            respirationRateKey: respirationRateKey,
-                            postureKey: postureKey,
-                          ),
-
-                          const Divider(),
-
-                          // HISTORY
-                          // HistorySection(
-                          //   historyKey: historyKey,
-                          // ),
-                        ],
+                Expanded(
+                  child: Row(
+                    children: [
+                      // sidebar
+                      AppSidebar(
+                        isOpen: isSidebarOpen,
+                        onLiveTap: () => scrollTo(liveKey),
+                        onLiveHeartTap: () => scrollTo(liveHeartRateKey),
+                        onHistoryTap: () => scrollTo(historyKey),
+                        onLiveRespirationTap: () => scrollTo(respirationRateKey),
+                        onLivePostureTap: () => scrollTo(postureKey),
                       ),
-                    ),
+
+                      //  Main Content
+                      Expanded(
+                        child: SingleChildScrollView(
+                          controller: _scrollController,
+                          child: Column(
+                            crossAxisAlignment: CrossAxisAlignment.start,
+                            children: [
+
+                              // LIVE
+                              LiveSection(
+                                liveKey: liveKey,
+                                heartRateKey: liveHeartRateKey,
+                                respirationRateKey: respirationRateKey,
+                                postureKey: postureKey,
+                              ),
+
+                              const Divider(),
+
+                              // HISTORY
+                              // HistorySection(
+                              //   historyKey: historyKey,
+                              // ),
+                            ],
+                          ),
+                        ),
+                      ),
+
+                    ],
                   ),
+                ),
 
-                ],
-              ),
+
+
+                const AppFooter(),
+              ]
+
           ),
-
-
-
-          const AppFooter(),
-        ]
-
-      )
+      ),
 
     );
   }

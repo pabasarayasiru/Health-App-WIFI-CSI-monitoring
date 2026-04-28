@@ -16,8 +16,8 @@ const { WebSocketServer, WebSocket } = require("ws");
 
 const setupSocket = (server) => {
   const wss = new WebSocketServer({ server });
-  initHealthSocketWS(wss);
-  // initHealthSocketWSReal(wss);
+  // initHealthSocketWS(wss);
+  initHealthSocketWSReal(wss);
 };
 
 
