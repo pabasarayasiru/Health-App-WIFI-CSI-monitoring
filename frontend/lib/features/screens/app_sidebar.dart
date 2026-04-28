@@ -23,9 +23,9 @@ class AppSidebar extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: isOpen ? 220 : 70,
+      width: isOpen ? 200 : 70,
       height: double.infinity,
-      color: isOpen ? Colors.brown : Colors.black87,
+      color: isOpen ? Colors.deepPurpleAccent : Colors.deepPurple.shade800,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [

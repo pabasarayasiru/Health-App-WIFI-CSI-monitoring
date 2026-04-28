@@ -13,7 +13,7 @@ class AppHeader extends StatelessWidget {
     return Container(
       height: 60,
       padding: const EdgeInsets.symmetric(horizontal: 8),
-      color: Colors.black87,
+      color: Colors.deepPurple.shade800 ,
 
       child: Row(
         mainAxisAlignment: MainAxisAlignment.start,
