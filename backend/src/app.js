@@ -7,6 +7,6 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-app.use("/api/health", healthRoutes);
+app.use("/api/health/history", healthRoutes);
 
 module.exports = app;

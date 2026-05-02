@@ -2,6 +2,7 @@ const { saveHealthData } = require("../services/firebaseService");
 
 
 
+
 const initHealthSocketIO = (io) => {
 
   io.on("connection", (socket) => {
@@ -21,7 +22,12 @@ const initHealthSocketIO = (io) => {
       socket.emit("health_data", data);
 
       // Save to Firestore
-      await saveHealthData(data);
+      try {
+        await saveHealthData(data);
+        console.log("Saved to Firestore");
+      } catch (err) {
+        console.error("Save error:", err);
+      }
 
     }, 2000);
 
@@ -51,13 +57,16 @@ const initHealthSocketWS = (wss) => {
       };
 
       // send data to this client
-      ws.send(JSON.stringify({
-        type: "health_data",
-        payload: data
-      }));
+      
+        ws.send(JSON.stringify({
+          type: "health_data",
+          payload: data
+        }));
 
-      // save to Firestore
-      await saveHealthData(data);
+      // ✅ save WITHOUT blocking websocket
+      saveHealthData(data).catch(err => {
+        console.error("Save error:", err);
+      });
 
     }, 2000);
 
@@ -122,7 +131,7 @@ const initHealthSocketWSReal = (wss) => {
     } catch (err) {
       console.error("Firebase save error:", err);
     }
-  }, 5000);
+  }, 2000);
 
   wss.on("connection", (ws) => {
     console.log("Client connected");
