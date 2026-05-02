@@ -1,8 +1,14 @@
 export 'app_footer.dart';
 export 'app_header.dart';
+export 'date_selector.dart';
 export 'header_topic.dart';
 export 'heart_rate_display.dart';
+export 'hourly_bar_chart.dart';
+export 'legend_item.dart';
 export 'posture_display.dart';
+export 'posture_pie_chart.dart';
 export 'respiration_rate_display.dart';
 export 'sidebar_tile.dart';
+export 'stats_card.dart';
 export 'sub_header_topic.dart';
+export 'summery_card.dart';

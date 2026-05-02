@@ -1,14 +1,21 @@
-import 'package:frontend/features/features.dart';
+import 'dart:convert';
+import 'package:http/http.dart' as http;
+import '../../core/core.dart';
 
 class HistoryService {
-  static List<HealthHistoryModel> getFakeHistory() {
-    return List.generate(20, (index) {
-      return HealthHistoryModel(
-        heartRate: 70 + index,
-        respirationRate: 15 + (index % 5),
-        posture: postureFromString("prone"),
-        timestamp: DateTime.now().subtract(Duration(minutes: index * 5)),
-      );
-    });
+  final base = ApiConstants.baseUrl;
+  final historyEndpoint = ApiConstants.historyEndpoint;
+
+  Future<Map<String, dynamic>> getAnalytics(String date) async {
+    final res = await http.get(
+      Uri.parse("$base/$historyEndpoint/analytics?date=$date"),
+    );
+
+    if (res.statusCode != 200) {
+      throw Exception("API error: ${res.body}");
+    }
+
+    return jsonDecode(res.body);
   }
+
 }

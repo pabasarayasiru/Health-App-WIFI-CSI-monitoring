@@ -14,12 +14,24 @@ const { WebSocketServer, WebSocket } = require("ws");
 
 
 
+
+
 const setupSocket = (server) => {
   const wss = new WebSocketServer({ server });
-  // initHealthSocketWS(wss);
-  initHealthSocketWSReal(wss);
-};
 
+  console.log("WebSocket server initialized");
+
+  // initHealthSocketWS(wss); 
+  initHealthSocketWSReal(wss);
+
+  wss.on("connection", (ws) => {
+    console.log("WebSocket client connected");
+  });
+
+  wss.on("error", (err) => {
+    console.error("WebSocket server error:", err);
+  });
+};
 
 
 module.exports = setupSocket;

@@ -15,10 +15,15 @@ class _HealthScreenState extends State<HealthScreen> {
   final ScrollController _scrollController = ScrollController();
 
   final GlobalKey liveKey = GlobalKey();
-  final GlobalKey historyKey = GlobalKey();
   final GlobalKey liveHeartRateKey = GlobalKey();
   final GlobalKey respirationRateKey = GlobalKey();
   final GlobalKey postureKey = GlobalKey();
+
+  final GlobalKey historyKey = GlobalKey();
+  final GlobalKey calendarKey = GlobalKey();
+  final GlobalKey summeryKey = GlobalKey();
+  final GlobalKey hourlyBarChartKey = GlobalKey();
+  final GlobalKey posturePieChartKey = GlobalKey();
 
   bool isSidebarOpen = false;
 
@@ -39,7 +44,7 @@ class _HealthScreenState extends State<HealthScreen> {
       final historyProvider = context.read<HistoryProvider>();
 
       realTimeProvider.start();
-      historyProvider.loadFakeHistory();
+      historyProvider.loadByDate();
     });
   }
 
@@ -80,6 +85,10 @@ class _HealthScreenState extends State<HealthScreen> {
                         onHistoryTap: () => scrollTo(historyKey),
                         onLiveRespirationTap: () => scrollTo(respirationRateKey),
                         onLivePostureTap: () => scrollTo(postureKey),
+                        onCalendarTap: () => scrollTo(calendarKey),
+                        onSummeryTap: () => scrollTo(summeryKey),
+                        onHourlyBarChartTap: () => scrollTo(hourlyBarChartKey),
+                        onPosturePieChartTap: () => scrollTo(posturePieChartKey),
                       ),
 
                       //  Main Content
@@ -101,9 +110,13 @@ class _HealthScreenState extends State<HealthScreen> {
                               const Divider(),
 
                               // HISTORY
-                              // HistorySection(
-                              //   historyKey: historyKey,
-                              // ),
+                              HistorySection(
+                                historyKey: historyKey,
+                                summeryKey: summeryKey,
+                                hourlyBarChartKey: hourlyBarChartKey,
+                                posturePieChartKey: posturePieChartKey,
+                                calendarKey: calendarKey,
+                              ),
                             ],
                           ),
                         ),
