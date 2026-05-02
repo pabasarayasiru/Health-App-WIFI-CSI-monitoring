@@ -9,6 +9,10 @@ class AppSidebar extends StatelessWidget {
   final VoidCallback onLiveRespirationTap;
   final VoidCallback onLivePostureTap;
   final VoidCallback onHistoryTap;
+  final VoidCallback onSummeryTap;
+  final VoidCallback onHourlyBarChartTap;
+  final VoidCallback onPosturePieChartTap;
+  final VoidCallback onCalendarTap;
 
   const AppSidebar({
     super.key,
@@ -18,14 +22,18 @@ class AppSidebar extends StatelessWidget {
     required this.onLiveRespirationTap,
     required this.onLivePostureTap,
     required this.onHistoryTap,
+    required this.onSummeryTap,
+    required this.onHourlyBarChartTap,
+    required this.onPosturePieChartTap,
+    required this.onCalendarTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: isOpen ? 200 : 70,
+      width: isOpen ? 180 : 70,
       height: double.infinity,
-      color: isOpen ? Colors.deepPurpleAccent : Colors.deepPurple.shade800,
+      color: isOpen ? Colors.deepPurpleAccent : Colors.deepPurpleAccent,
       child: Column(
         crossAxisAlignment: CrossAxisAlignment.start,
         children: [
@@ -78,11 +86,33 @@ class AppSidebar extends StatelessWidget {
           if(isOpen)
             Padding(
               padding: const EdgeInsets.only(left: 16),
-              child: SidebarTile(
-                title: "Heart Rate",
-                icon: Icons.monitor_heart_rounded,
-                isSidebarOpen: isOpen,
-                onTap: onLiveHeartTap,
+              child: Column(
+                children:[
+                  SidebarTile(
+                    title: "Select Date",
+                    icon: Icons.calendar_month,
+                    isSidebarOpen: isOpen,
+                    onTap: onCalendarTap,
+                  ),
+                  SidebarTile(
+                    title: "Daily Summery",
+                    icon: Icons.hourglass_bottom,
+                    isSidebarOpen: isOpen,
+                    onTap: onSummeryTap,
+                  ),
+                  SidebarTile(
+                    title: "Hourly Summery",
+                    icon: Icons.bar_chart,
+                    isSidebarOpen: isOpen,
+                    onTap: onHourlyBarChartTap,
+                  ),
+                  SidebarTile(
+                    title: "Posture Summery",
+                    icon: Icons.pie_chart,
+                    isSidebarOpen: isOpen,
+                    onTap: onPosturePieChartTap,
+                  ),
+                ],
               ),
             ),
         ],
