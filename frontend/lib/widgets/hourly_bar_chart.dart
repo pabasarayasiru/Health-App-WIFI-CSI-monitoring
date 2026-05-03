@@ -72,6 +72,23 @@ class HourlyBarChart extends StatelessWidget {
                     ),
                   ),
 
+                  barTouchData: BarTouchData(
+                    enabled: true,
+                    touchTooltipData: BarTouchTooltipData(
+                      tooltipPadding: const EdgeInsets.all(6),
+                      tooltipMargin: 0,
+                      getTooltipItem: (group, groupIndex, rod, rodIndex) {
+                        return BarTooltipItem(
+                          rod.toY.toStringAsFixed(2),
+                          const TextStyle(
+                            color: Colors.white,
+                            fontWeight: FontWeight.bold,
+                          ),
+                        );
+                      },
+                    ),
+                  ),
+
                   gridData: const FlGridData(show: true),
 
                   barGroups: data.asMap().entries.map((e) {
@@ -126,6 +143,6 @@ class HourlyBarChart extends StatelessWidget {
       if (d.avgRespirationRate > maxVal) maxVal = d.avgRespirationRate;
     }
 
-    return maxVal + 10;
+    return maxVal + (maxVal * 0.2);
   }
 }

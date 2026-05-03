@@ -14,34 +14,37 @@ class DateSelector extends StatelessWidget {
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
         SizedBox(height: 30,),
-        Row(
-          mainAxisAlignment: MainAxisAlignment.center,
-          crossAxisAlignment: CrossAxisAlignment.center,
-          children: [
-            Text(
-              "Date: ${provider.selectedDate.toLocal().toString().split(" ")[0]}",
-              style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
-            ),
+        SingleChildScrollView(
+        scrollDirection: Axis.horizontal,
+        child: Row(
+            mainAxisAlignment: MainAxisAlignment.center,
+            crossAxisAlignment: CrossAxisAlignment.center,
+            children: [
+              Text(
+                "Date: ${provider.selectedDate.toLocal().toString().split(" ")[0]}",
+                style: const TextStyle(fontSize: 16, fontWeight: FontWeight.bold),
+              ),
 
-            const SizedBox(width: 20),
+              const SizedBox(width: 20),
 
-            ElevatedButton(
-              onPressed: () async {
-                final picked = await showDatePicker(
-                  context: context,
-                  initialDate: provider.selectedDate,
-                  firstDate: DateTime(2024),
-                  lastDate: DateTime.now(),
-                );
+              ElevatedButton(
+                onPressed: () async {
+                  final picked = await showDatePicker(
+                    context: context,
+                    initialDate: provider.selectedDate,
+                    firstDate: DateTime(2024),
+                    lastDate: DateTime.now(),
+                  );
 
-                if (picked != null) {
-                  provider.selectedDate = picked;
-                  await provider.loadByDate();
-                }
-              },
-              child: const Text("Select Date"),
-            )
-          ],
+                  if (picked != null) {
+                    provider.selectedDate = picked;
+                    await provider.loadByDate();
+                  }
+                },
+                child: const Text("Select Date"),
+              )
+            ],
+          ),
         ),
         const SizedBox(height: 30),
       ],

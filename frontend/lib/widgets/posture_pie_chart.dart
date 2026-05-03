@@ -25,11 +25,11 @@ class PosturePieChart extends StatelessWidget {
           SubHeaderTopic(topic: "Posture Distribution"),
           SizedBox(height: 10,),
           SizedBox(
-            height: 220,
+            height: 400,
             child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: Center(
-              child: Row(
+              child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
                   children: [
                     // 🥧 PIE CHART
@@ -76,7 +76,7 @@ class PosturePieChart extends StatelessWidget {
                       ),
                     ),
 
-                    const SizedBox(width: 20),
+                    const SizedBox(height: 20),
 
                     // 📊 LEGEND (OUTSIDE LABELS)
                     SizedBox(
@@ -102,6 +102,7 @@ class PosturePieChart extends StatelessWidget {
                             text:
                             "Left - ${percent(stats.left).toStringAsFixed(2)}%",
                           ),
+                          const SizedBox(height: 10),
                           LegendItem(
                             color: Colors.orange,
                             text:
