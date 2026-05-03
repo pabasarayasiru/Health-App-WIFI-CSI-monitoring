@@ -62,6 +62,26 @@ class _HeartRateWidgetState extends State<HeartRateWidget>
           child: Container(
             width: double.infinity,
             padding: const EdgeInsets.all(20),
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(16),
+
+              gradient: LinearGradient(
+                colors: [
+                  Colors.deepPurple.shade100,
+                  Colors.white60,
+                ],
+                begin: Alignment.topLeft,
+                end: Alignment.bottomRight,
+              ),
+
+              boxShadow: [
+                BoxShadow(
+                  color: Colors.deepPurple.withOpacity(0.3),
+                  blurRadius: 10,
+                  offset: const Offset(0, 4),
+                )
+              ],
+            ),
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.start,
               children: [

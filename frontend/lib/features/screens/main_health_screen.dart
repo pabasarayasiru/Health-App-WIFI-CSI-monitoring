@@ -93,31 +93,45 @@ class _HealthScreenState extends State<HealthScreen> {
 
                       //  Main Content
                       Expanded(
-                        child: SingleChildScrollView(
-                          controller: _scrollController,
-                          child: Column(
-                            crossAxisAlignment: CrossAxisAlignment.start,
-                            children: [
+                        child: RefreshIndicator(
+                          onRefresh: () async {
+                            final realTimeProvider = context.read<RealtimeProvider>();
+                            final historyProvider = context.read<HistoryProvider>();
 
-                              // LIVE
-                              LiveSection(
-                                liveKey: liveKey,
-                                heartRateKey: liveHeartRateKey,
-                                respirationRateKey: respirationRateKey,
-                                postureKey: postureKey,
-                              ),
+                            // restart websocket
+                            realTimeProvider.stop();
+                            realTimeProvider.start();
 
-                              const Divider(),
+                            // reload data
+                            await historyProvider.loadByDate();
+                          },
 
-                              // HISTORY
-                              HistorySection(
-                                historyKey: historyKey,
-                                summeryKey: summeryKey,
-                                hourlyBarChartKey: hourlyBarChartKey,
-                                posturePieChartKey: posturePieChartKey,
-                                calendarKey: calendarKey,
-                              ),
-                            ],
+                          child: SingleChildScrollView(
+                            controller: _scrollController,
+                            child: Column(
+                              crossAxisAlignment: CrossAxisAlignment.start,
+                              children: [
+
+                                // LIVE
+                                LiveSection(
+                                  liveKey: liveKey,
+                                  heartRateKey: liveHeartRateKey,
+                                  respirationRateKey: respirationRateKey,
+                                  postureKey: postureKey,
+                                ),
+
+                                const Divider(),
+
+                                // HISTORY
+                                HistorySection(
+                                  historyKey: historyKey,
+                                  summeryKey: summeryKey,
+                                  hourlyBarChartKey: hourlyBarChartKey,
+                                  posturePieChartKey: posturePieChartKey,
+                                  calendarKey: calendarKey,
+                                ),
+                              ],
+                            ),
                           ),
                         ),
                       ),

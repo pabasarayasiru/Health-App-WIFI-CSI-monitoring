@@ -14,7 +14,9 @@ class SummeryCard extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SubHeaderTopic(topic: "Daily Summery"),
         Row(
           children: [
             Expanded(
@@ -35,7 +37,7 @@ class SummeryCard extends StatelessWidget {
             ),
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 80),
       ],
     );
   }

@@ -24,9 +24,9 @@ class HistorySection extends StatelessWidget {
   Widget build(BuildContext context) {
     final provider = context.watch<HistoryProvider>();
 
-    if (provider.isLoading) {
-      return const Center(child: CircularProgressIndicator());
-    }
+    // if (provider.isLoading) {
+    //   return const Center(child: CircularProgressIndicator());
+    // }
 
     return Container(
         key: historyKey,

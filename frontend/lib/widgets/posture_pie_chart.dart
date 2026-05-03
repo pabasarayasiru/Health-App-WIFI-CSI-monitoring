@@ -19,93 +19,105 @@ class PosturePieChart extends StatelessWidget {
 
     double percent(double value) => (value / total) * 100;
 
-    return SizedBox(
-      height: 400,
-      child: Column(
+    return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
         children: [
-          const Text(
-            "Posture Distribution",
-            style: TextStyle(fontWeight: FontWeight.bold),
-          ),
-          const SizedBox(height: 10),
-          Row(
-            children: [
-              // 🥧 PIE CHART
-              Expanded(
-                flex: 2,
-                child: PieChart(
-                  PieChartData(
-                    centerSpaceRadius: 20,
-                    sectionsSpace: 2,
-                    sections: [
-                      PieChartSectionData(
-                        value: stats.supine,
-                        radius: 100,
-                        color: Colors.blue,
-                        title: "",
-                      ),
-                      PieChartSectionData(
-                        value: stats.prone,
-                        radius: 100,
-                        color: Colors.red,
-                        title: "",
-                      ),
-                      PieChartSectionData(
-                        value: stats.left,
-                        radius: 100,
-                        color: Colors.green,
-                        title: "",
-                      ),
-                      PieChartSectionData(
-                        value: stats.right,
-                        radius: 100,
-                        color: Colors.orange,
-                        title: "",
-                      ),
-                    ],
-                  ),
-                ),
-              ),
-
-              const SizedBox(width: 20),
-
-              // 📊 LEGEND (OUTSIDE LABELS)
-              Expanded(
-                flex: 2,
-                child: Column(
+          SubHeaderTopic(topic: "Posture Distribution"),
+          SizedBox(height: 10,),
+          SizedBox(
+            height: 400,
+            child: SingleChildScrollView(
+            scrollDirection: Axis.horizontal,
+            child: Center(
+              child: Column(
                   mainAxisAlignment: MainAxisAlignment.center,
-                  crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
-                    LegendItem(
-                      color: Colors.blue,
-                      text:
-                      "Supine - ${percent(stats.supine).toStringAsFixed(2)}%",
+                    // 🥧 PIE CHART
+                    Container(
+                      padding: const EdgeInsets.all(10),
+                      decoration: BoxDecoration(
+                        borderRadius: BorderRadius.circular(12),
+                      ),
+                      child: SizedBox(
+                        width: 220,
+                        height: 220,
+                        child: PieChart(
+                          PieChartData(
+                            centerSpaceRadius: 20,
+                            sectionsSpace: 2,
+                            sections: [
+                              PieChartSectionData(
+                                value: stats.supine,
+                                radius: 90,
+                                color: Colors.blue,
+                                title: "",
+                              ),
+                              PieChartSectionData(
+                                value: stats.prone,
+                                radius: 90,
+                                color: Colors.deepPurple,
+                                title: "",
+                              ),
+                              PieChartSectionData(
+                                value: stats.left,
+                                radius: 90,
+                                color: Colors.green,
+                                title: "",
+                              ),
+                              PieChartSectionData(
+                                value: stats.right,
+                                radius: 90,
+                                color: Colors.orange,
+                                title: "",
+                              ),
+                            ],
+                          ),
+                        ),
+                      ),
                     ),
-                    const SizedBox(height: 10),
-                    LegendItem(
-                      color: Colors.red,
-                      text:
-                      "Prone - ${percent(stats.prone).toStringAsFixed(2)}%",
-                    ),
-                    const SizedBox(height: 10),
-                    LegendItem(
-                      color: Colors.green,
-                      text:
-                      "Left - ${percent(stats.left).toStringAsFixed(2)}%",
-                    ),
-                    const SizedBox(height: 10),
-                    LegendItem(
-                      color: Colors.orange,
-                      text:
-                      "Right - ${percent(stats.right).toStringAsFixed(2)}%",
+
+                    const SizedBox(height: 20),
+
+                    // 📊 LEGEND (OUTSIDE LABELS)
+                    SizedBox(
+                      width: 200,
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        crossAxisAlignment: CrossAxisAlignment.start,
+                        children: [
+                          LegendItem(
+                            color: Colors.blue,
+                            text:
+                            "Supine - ${percent(stats.supine).toStringAsFixed(2)}%",
+                          ),
+                          const SizedBox(height: 10),
+                          LegendItem(
+                            color: Colors.deepPurple,
+                            text:
+                            "Prone - ${percent(stats.prone).toStringAsFixed(2)}%",
+                          ),
+                          const SizedBox(height: 10),
+                          LegendItem(
+                            color: Colors.green,
+                            text:
+                            "Left - ${percent(stats.left).toStringAsFixed(2)}%",
+                          ),
+                          const SizedBox(height: 10),
+                          LegendItem(
+                            color: Colors.orange,
+                            text:
+                            "Right - ${percent(stats.right).toStringAsFixed(2)}%",
+                          ),
+                        ],
+                      ),
                     ),
                   ],
                 ),
               ),
-            ],
+            ),
           ),
-        ],
-      ),
+          const SizedBox(height: 20),
+      ],
     );
   }
 }
