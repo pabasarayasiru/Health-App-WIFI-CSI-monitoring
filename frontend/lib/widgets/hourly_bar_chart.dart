@@ -18,9 +18,12 @@ class HourlyBarChart extends StatelessWidget {
     return Column(
       crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+
+        SubHeaderTopic(topic: "Hourly Summery"),
+        SizedBox(height: 10,),
         // 📊 CHART
         SizedBox(
-          height: 300,
+          height: 350,
           child: SingleChildScrollView(
             scrollDirection: Axis.horizontal,
             child: SizedBox(
@@ -81,15 +84,15 @@ class HourlyBarChart extends StatelessWidget {
                         // 🟦 HEART RATE
                         BarChartRodData(
                           toY: item.avgHeartRate,
-                          width: 8,
-                          color: Colors.blue,
+                          width: 20,
+                          color: Colors.deepPurple.shade800,
                         ),
 
                         // 🟧 RESPIRATION RATE
                         BarChartRodData(
                           toY: item.avgRespirationRate,
-                          width: 8,
-                          color: Colors.orange,
+                          width: 20,
+                          color: Colors.blueAccent,
                         ),
                       ],
                     );
@@ -105,12 +108,12 @@ class HourlyBarChart extends StatelessWidget {
         // 🧠 LEGEND (IMPORTANT ADDITION)
         Row(
           children: const [
-            LegendItem(color: Colors.blue, text: "Heart Rate"),
+            LegendItem(color: Colors.deepPurple, text: "Heart Rate"),
             SizedBox(width: 20),
-            LegendItem(color: Colors.orange, text: "Respiration Rate"),
+            LegendItem(color: Colors.blueAccent, text: "Respiration Rate"),
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 100),
       ],
     );
   }

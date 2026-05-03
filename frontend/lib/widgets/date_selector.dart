@@ -1,4 +1,5 @@
 import 'package:flutter/material.dart';
+import 'package:frontend/widgets/sub_header_topic.dart';
 import 'package:provider/provider.dart';
 import 'package:frontend/features/features.dart';
 
@@ -10,8 +11,12 @@ class DateSelector extends StatelessWidget {
     final provider = context.watch<HistoryProvider>();
 
     return Column(
+      crossAxisAlignment: CrossAxisAlignment.start,
       children: [
+        SizedBox(height: 30,),
         Row(
+          mainAxisAlignment: MainAxisAlignment.center,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
             Text(
               "Date: ${provider.selectedDate.toLocal().toString().split(" ")[0]}",
@@ -38,7 +43,7 @@ class DateSelector extends StatelessWidget {
             )
           ],
         ),
-        const SizedBox(height: 20),
+        const SizedBox(height: 30),
       ],
     );
   }
