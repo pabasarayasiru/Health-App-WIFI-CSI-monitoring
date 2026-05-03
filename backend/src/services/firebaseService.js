@@ -6,7 +6,7 @@ const saveHealthData = async (data) => {
     const now = new Date(data.timestamp);
 
     const date = now.toISOString().split("T")[0]; // YYYY-MM-DD
-    const hour = now.getHours();
+    const hour = now.getUTCHours();
 
     const ref = db
       .collection("health_data")
