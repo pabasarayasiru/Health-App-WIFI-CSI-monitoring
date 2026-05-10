@@ -13,6 +13,7 @@ class AppSidebar extends StatelessWidget {
   final VoidCallback onHourlyBarChartTap;
   final VoidCallback onPosturePieChartTap;
   final VoidCallback onCalendarTap;
+  final VoidCallback onSleepMonitoringTap;
 
   const AppSidebar({
     super.key,
@@ -26,12 +27,13 @@ class AppSidebar extends StatelessWidget {
     required this.onHourlyBarChartTap,
     required this.onPosturePieChartTap,
     required this.onCalendarTap,
+    required this.onSleepMonitoringTap,
   });
 
   @override
   Widget build(BuildContext context) {
     return Container(
-      width: isOpen ? 180 : 70,
+      width: isOpen ? 180 : 65,
       height: double.infinity,
       color: isOpen ? Colors.deepPurpleAccent : Colors.deepPurpleAccent,
       child: Column(
@@ -115,6 +117,13 @@ class AppSidebar extends StatelessWidget {
                 ],
               ),
             ),
+
+          SidebarTile(
+            title: "Sleep Monitoring",
+            icon: Icons.theaters_outlined,
+            isSidebarOpen: isOpen,
+            onTap: onSleepMonitoringTap,
+          ),
         ],
       ),
     );

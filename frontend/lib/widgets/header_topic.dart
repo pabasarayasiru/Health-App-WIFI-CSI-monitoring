@@ -15,7 +15,8 @@ class HeaderTopic extends StatelessWidget {
       children: [
         Text(topic,
             style: TextStyle(
-                fontSize: 28, fontWeight: FontWeight.bold
+              fontSize: 30, fontWeight: FontWeight.bold,
+              color: Colors.deepPurple.shade900,
             )
         ),
         SizedBox(height: 10),

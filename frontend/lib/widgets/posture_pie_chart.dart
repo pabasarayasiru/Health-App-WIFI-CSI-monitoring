@@ -13,9 +13,6 @@ class PosturePieChart extends StatelessWidget {
     final total =
         stats.supine + stats.prone + stats.left + stats.right;
 
-    if (total <= 0) {
-      return const Center(child: Text("No posture data"));
-    }
 
     double percent(double value) => (value / total) * 100;
 
@@ -45,7 +42,17 @@ class PosturePieChart extends StatelessWidget {
                           PieChartData(
                             centerSpaceRadius: 20,
                             sectionsSpace: 2,
-                            sections: [
+                            sections: total <= 0
+                            ?
+                            [
+                              PieChartSectionData(
+                              value: 1,
+                              radius: 90,
+                              color: Colors.grey.shade300,
+                              title: "",
+                              ),
+                            ] :
+                            [
                               PieChartSectionData(
                                 value: stats.supine,
                                 radius: 90,
