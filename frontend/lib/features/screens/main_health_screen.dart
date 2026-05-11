@@ -25,6 +25,8 @@ class _HealthScreenState extends State<HealthScreen> {
   final GlobalKey hourlyBarChartKey = GlobalKey();
   final GlobalKey posturePieChartKey = GlobalKey();
 
+  final GlobalKey sleepSectionKey = GlobalKey();
+
   bool isSidebarOpen = false;
 
   void scrollTo(GlobalKey key) {
@@ -89,6 +91,7 @@ class _HealthScreenState extends State<HealthScreen> {
                         onSummeryTap: () => scrollTo(summeryKey),
                         onHourlyBarChartTap: () => scrollTo(hourlyBarChartKey),
                         onPosturePieChartTap: () => scrollTo(posturePieChartKey),
+                        onSleepMonitoringTap: () => scrollTo(sleepSectionKey),
                       ),
 
                       //  Main Content
@@ -130,6 +133,14 @@ class _HealthScreenState extends State<HealthScreen> {
                                   posturePieChartKey: posturePieChartKey,
                                   calendarKey: calendarKey,
                                 ),
+
+                                const Divider(),
+
+                                // SLEEP MONITORING
+                                SleepMonitoring(
+                                  sleepSectionKey: sleepSectionKey,
+                                ),
+
                               ],
                             ),
                           ),
