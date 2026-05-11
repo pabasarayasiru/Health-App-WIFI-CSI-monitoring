@@ -5,8 +5,14 @@ const saveHealthData = async (data) => {
   try {
     const now = new Date(data.timestamp);
 
-    const date = now.toISOString().split("T")[0]; // YYYY-MM-DD
-    const hour = now.getUTCHours();
+    // Convert to Sri Lanka time
+    const sriLankaTime = new Date(now.getTime() + (5.5 * 60 * 60 * 1000));
+
+    const date = sriLankaTime.toISOString().split("T")[0]; // YYYY-MM-DD
+    const hour = sriLankaTime.getUTCHours();
+
+    const heartRate = Number(data.heart_rate || 0);
+    const respirationRate = Number(data.respiration_rate || 0);
 
     const ref = db
       .collection("health_data")
@@ -18,8 +24,8 @@ const saveHealthData = async (data) => {
       date,
       hour,
 
-      heart_sum: admin.firestore.FieldValue.increment(data.heart_rate || 0),
-      resp_sum: admin.firestore.FieldValue.increment(data.respiration_rate || 0),
+      heart_sum: admin.firestore.FieldValue.increment(heartRate),
+      resp_sum: admin.firestore.FieldValue.increment(respirationRate),
 
       // count for average
       count: admin.firestore.FieldValue.increment(1),
@@ -30,8 +36,8 @@ const saveHealthData = async (data) => {
       posture_right: admin.firestore.FieldValue.increment(data.posture === "right" ? 1 : 0),
 
       // optional latest snapshot
-      last_heart_rate: data.heart_rate,
-      last_respiration_rate: data.respiration_rate,
+      last_heart_rate: heartRate,
+      last_respiration_rate: respirationRate,
       last_posture: data.posture,
 
       updatedAt: admin.firestore.FieldValue.serverTimestamp()
