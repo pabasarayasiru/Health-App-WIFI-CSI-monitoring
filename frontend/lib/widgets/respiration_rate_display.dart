@@ -3,7 +3,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/widgets/sub_header_topic.dart';
 
 class RespirationWidget extends StatefulWidget {
-  final int? respirationRate;
+  final double? respirationRate;
 
   const RespirationWidget({super.key, this.respirationRate});
 
@@ -29,8 +29,9 @@ class _RespirationWidgetState extends State<RespirationWidget>
   void didUpdateWidget(covariant RespirationWidget oldWidget) {
     super.didUpdateWidget(oldWidget);
 
-    final rate = widget.respirationRate ?? 16;
+    final rate = widget.respirationRate ?? 16.0;
 
+    // Use toInt() here for the duration calculation
     final durationMs = (60000 / rate).clamp(800, 4000).toInt();
 
     _controller.duration = Duration(milliseconds: durationMs);
@@ -99,13 +100,36 @@ class _RespirationWidgetState extends State<RespirationWidget>
                 const SizedBox(height: 10),
 
                 Center(
-                  child: Text(
-                    rate != null ? "$rate bpm" : "--",
-                    style: const TextStyle(
-                      fontSize: 24,
-                      fontWeight: FontWeight.bold,
-                    ),
-                  ),
+                  child: rate != null 
+                    ? Text.rich(
+                        TextSpan(
+                          children: [
+                            TextSpan(
+                              text: rate.toStringAsFixed(2),
+                              style: const TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.black,
+                              ),
+                            ),
+                            TextSpan(
+                              text: "  bpm",
+                              style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                                color: Colors.deepPurple.shade800,
+                              ),
+                            ),
+                          ],
+                        ),
+                      )
+                    : const Text(
+                        "--",
+                        style: TextStyle(
+                          fontSize: 24,
+                          fontWeight: FontWeight.bold,
+                        ),
+                      ),
                 ),
               ],
             ),
@@ -116,8 +140,6 @@ class _RespirationWidgetState extends State<RespirationWidget>
     );
   }
 }
-
-
 
 class _WavePainter extends CustomPainter {
   final double value;

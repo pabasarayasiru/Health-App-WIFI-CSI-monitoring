@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 import 'package:frontend/widgets/sub_header_topic.dart';
 
 class HeartRateWidget extends StatefulWidget {
-  final int? heartRate;
+  final double? heartRate;
 
   const HeartRateWidget({super.key, this.heartRate});
 
@@ -36,9 +36,9 @@ class _HeartRateWidgetState extends State<HeartRateWidget>
     super.didUpdateWidget(oldWidget);
 
     // adjust speed based on heart rate
-    final bpm = widget.heartRate ?? 60;
+    final bpmValue = widget.heartRate ?? 60.0;
 
-    final durationMs = (60000 / bpm).clamp(300, 1200).toInt();
+    final durationMs = (60000 / bpmValue).clamp(300, 1200).toInt();
 
     _controller.duration = Duration(milliseconds: durationMs);
     _controller.repeat(reverse: true);
@@ -104,12 +104,37 @@ class _HeartRateWidgetState extends State<HeartRateWidget>
 
                       const SizedBox(height: 10),
 
-                      Text(
-                        bpm != null ? "$bpm bpm" : "--",
-                        style: const TextStyle(
-                          fontSize: 26,
-                          fontWeight: FontWeight.bold,
-                        ),
+                      Center(
+                        child: bpm != null 
+                          ? Text.rich(
+                              TextSpan(
+                                children: [
+                                  TextSpan(
+                                    text: bpm.toStringAsFixed(2),
+                                    style: const TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.black,
+                                    ),
+                                  ),
+                                  TextSpan(
+                                    text: "  bpm",
+                                    style: TextStyle(
+                                      fontSize: 26,
+                                      fontWeight: FontWeight.bold,
+                                      color: Colors.deepPurple.shade800,
+                                    ),
+                                  ),
+                                ],
+                              ),
+                            )
+                          : const Text(
+                              "--",
+                              style: TextStyle(
+                                fontSize: 26,
+                                fontWeight: FontWeight.bold,
+                              ),
+                            ),
                       ),
                     ],
                   ),
